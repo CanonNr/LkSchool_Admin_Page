@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import LoginFrom from './components/Login';
 import styles from './style.less';
 
-const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginFrom;
+const { Tab, Username, Password, Submit } = LoginFrom;
 
 const LoginMessage: React.FC<{
   content: string;
@@ -47,7 +47,7 @@ const replaceGoto = () => {
 };
 
 const Login: React.FC<{}> = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginStateType>({});
+  // const [userLoginState, setUserLoginState] = useState<API.LoginStateType>({type});
   const [submitting, setSubmitting] = useState(false);
 
   const { refresh } = useModel('@@initialState');
@@ -59,7 +59,7 @@ const Login: React.FC<{}> = () => {
     try {
       // 登录
       const msg = await fakeAccountLogin({ ...values, type });
-      if (msg.status === 'ok') {
+      if (msg.code === 200) {
         message.success('登录成功！');
         replaceGoto();
         setTimeout(() => {
@@ -68,14 +68,14 @@ const Login: React.FC<{}> = () => {
         return;
       }
       // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
+      // setUserLoginState(msg);
     } catch (error) {
       message.error('登录失败，请重试！');
     }
     setSubmitting(false);
   };
 
-  const { status, type: loginType } = userLoginState;
+  // const { status, type: loginType } = userLoginState;
 
   return (
     <div className={styles.container}>
@@ -96,7 +96,8 @@ const Login: React.FC<{}> = () => {
         <div className={styles.main}>
           <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
             <Tab key="account" tab="账户密码登录">
-              {status === 'error' && loginType === 'account' && !submitting && (
+              {/* eslint-disable-next-line no-restricted-globals */}
+              {status === 'error' && !submitting && (
                 <LoginMessage content="账户或密码错误（admin/ant.design）" />
               )}
 
@@ -117,38 +118,6 @@ const Login: React.FC<{}> = () => {
                   {
                     required: true,
                     message: '请输入密码！',
-                  },
-                ]}
-              />
-            </Tab>
-            <Tab key="mobile" tab="手机号登录">
-              {status === 'error' && loginType === 'mobile' && !submitting && (
-                <LoginMessage content="验证码错误" />
-              )}
-              <Mobile
-                name="mobile"
-                placeholder="手机号"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入手机号！',
-                  },
-                  {
-                    pattern: /^1\d{10}$/,
-                    message: '手机号格式错误！',
-                  },
-                ]}
-              />
-              <Captcha
-                name="captcha"
-                placeholder="验证码"
-                countDown={120}
-                getCaptchaButtonText=""
-                getCaptchaSecondText="秒"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入验证码！',
                   },
                 ]}
               />

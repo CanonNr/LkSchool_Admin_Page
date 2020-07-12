@@ -10,7 +10,7 @@ export interface LoginParamsType {
 
 export async function fakeAccountLogin(params: LoginParamsType) {
   return request<API.LoginStateType>('/login', {
-    method: 'GET',
+    method: 'POST',
     data: params,
   });
 }
