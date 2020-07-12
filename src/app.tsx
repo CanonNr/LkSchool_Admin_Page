@@ -5,8 +5,11 @@ import { history, RequestConfig } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { ResponseError } from 'umi-request';
-import { queryCurrent } from './services/user';
+// import { queryCurrent } from './services/user';
+import cookie from 'react-cookies'
 import defaultSettings from '../config/defaultSettings';
+import InitObject from '@/utils/config';
+import { queryCurrent } from '@/services/user';
 
 export async function getInitialState(): Promise<{
   currentUser?: API.CurrentUser;
@@ -15,12 +18,21 @@ export async function getInitialState(): Promise<{
   // 如果是登录页面，不执行
   if (history.location.pathname !== '/user/login') {
     try {
-      const currentUser = await queryCurrent();
+      const token = cookie.load(InitObject.token);
+      // 判断token是否为空
+      // eslint-disable-next-line eqeqeq
+      if(token == null || token == "" || token =="null" || typeof(token) == "undefined" || token ==false || token == undefined){
+        history.push('/user/login');
+      }
+
+      // 不为空则获取用户信息
+      const currentUser = await queryCurrent(token);
+      // const currentUser = await queryCurrent();
       console.log(currentUser)
-      return {
-        currentUser,
-        settings: defaultSettings,
-      };
+      // return {
+      //   currentUser,
+      //   settings: defaultSettings,
+      // };
     } catch (error) {
       history.push('/user/login');
     }

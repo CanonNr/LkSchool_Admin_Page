@@ -6,8 +6,11 @@ import { getPageQuery } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
 import { LoginParamsType, fakeAccountLogin } from '@/services/login';
 import Footer from '@/components/Footer';
+import cookie from 'react-cookies'
+import InitObject from '@/utils/config';
 import LoginFrom from './components/Login';
 import styles from './style.less';
+
 
 const { Tab, Username, Password, Submit } = LoginFrom;
 
@@ -46,6 +49,13 @@ const replaceGoto = () => {
   history.replace(redirect || '/');
 };
 
+window.onload = function() {
+  const token = cookie.load(InitObject.token);
+  if (token){
+    history.push('/');
+  }
+};
+
 const Login: React.FC<{}> = () => {
   // const [userLoginState, setUserLoginState] = useState<API.LoginStateType>({type});
   const [submitting, setSubmitting] = useState(false);
@@ -60,10 +70,12 @@ const Login: React.FC<{}> = () => {
       // 登录
       const msg = await fakeAccountLogin({ ...values, type });
       if (msg.code === 200) {
+        cookie.save(InitObject.token,msg.data,{path:"/"})
         message.success('登录成功！');
         replaceGoto();
         setTimeout(() => {
           refresh();
+
         }, 0);
         return;
       }

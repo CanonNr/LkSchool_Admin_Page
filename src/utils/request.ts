@@ -4,6 +4,8 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import cookie from 'react-cookies'
+import InitObject from '@/utils/config';
 
 const host = 'http://localhost:8800';
 const base = '/api/v1';
@@ -47,14 +49,19 @@ const errorHandler = (error: { response: Response }): Response => {
   return response;
 };
 
+
+const token = cookie.load(InitObject.token);
+
 /**
  * 配置request请求时的默认参数
  */
-
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie,
   prefix: host+base,
+  headers:{
+    'Authorization':`Bearer ${ token }`
+  }
 });
 
 
