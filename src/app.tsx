@@ -16,13 +16,13 @@ export async function getInitialState(): Promise<{
   settings?: LayoutSettings;
 }> {
   // 如果是登录页面，不执行
-  if (history.location.pathname !== '/user/login') {
+  if (history.location.pathname !== '/login') {
     try {
       const token = cookie.load(InitObject.token);
       // 判断token是否为空
       // eslint-disable-next-line eqeqeq
       if(token == null || token == "" || token =="null" || typeof(token) == "undefined" || token ==false || token == undefined){
-        history.push('/user/login');
+        history.push('/login');
       }
 
       // 不为空则获取用户信息
@@ -35,7 +35,7 @@ export async function getInitialState(): Promise<{
 
 
     } catch (error) {
-      history.push('/user/login');
+      history.push('/login');
     }
   }
   return {

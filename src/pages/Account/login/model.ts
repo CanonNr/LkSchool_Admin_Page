@@ -2,6 +2,8 @@ import { Effect, history, Reducer } from 'umi';
 import { message } from 'antd';
 import { parse } from 'qs';
 import { fakeAccountLogin, getFakeCaptcha } from './service';
+import cookie from 'react-cookies';
+import InitObject from '@/utils/config';
 
 export function getPageQuery() {
   return parse(window.location.href.split('?')[1]);
@@ -56,8 +58,9 @@ const Model: ModelType = {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.code === 200) {
         message.success('登录成功！');
+        cookie.save(InitObject.token,response.data,{path:"/"})
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };

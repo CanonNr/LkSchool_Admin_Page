@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Menu, Spin } from 'antd';
+// @ts-ignore
 import { ClickParam } from 'antd/es/menu';
 import { history, useModel } from 'umi';
 import { getPageQuery } from '@/utils/utils';
@@ -60,11 +61,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     return loading;
   }
 
-  const { currentUser } = initialState;
+  // const { currentUser } = initialState;
 
-  if (!currentUser || !currentUser.name) {
-    return loading;
-  }
+  // if (!currentUser || !currentUser.name) {
+  //   return loading;
+  // }
 
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
@@ -89,12 +90,19 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     </Menu>
   );
   return (
-    <HeaderDropdown overlay={menuHeaderDropdown}>
+    // <HeaderDropdown overlay={menuHeaderDropdown}>
+    //   <span className={`${styles.action} ${styles.account}`}>
+    //      <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+    //      <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+    //    </span>
+    // </HeaderDropdown>
+
+  <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-        <span className={`${styles.name} anticon`}>{currentUser.name}</span>
-      </span>
-    </HeaderDropdown>
+         <Avatar size="small" className={styles.avatar} src='http://127.0.0.1:7888/data/image/2020022708453277469.jpg' alt="avatar" />
+         <span className={`${styles.name} anticon`}>admin</span>
+       </span>
+  </HeaderDropdown>
   );
 };
 

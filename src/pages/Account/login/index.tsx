@@ -7,7 +7,7 @@ import styles from './style.less';
 import { LoginParamsType } from './service';
 import LoginFrom from './components/Login';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginFrom;
+const { Tab, UserName, Password, Submit } = LoginFrom;
 interface LoginProps {
   dispatch: Dispatch;
   accountAndlogin: StateType;
@@ -68,38 +68,6 @@ const Login: React.FC<LoginProps> = (props) => {
               {
                 required: true,
                 message: '请输入密码！',
-              },
-            ]}
-          />
-        </Tab>
-        <Tab key="mobile" tab="手机号登录">
-          {status === 'error' && loginType === 'mobile' && !submitting && (
-            <LoginMessage content="验证码错误" />
-          )}
-          <Mobile
-            name="mobile"
-            placeholder="手机号"
-            rules={[
-              {
-                required: true,
-                message: '请输入手机号！',
-              },
-              {
-                pattern: /^1\d{10}$/,
-                message: '手机号格式错误！',
-              },
-            ]}
-          />
-          <Captcha
-            name="captcha"
-            placeholder="验证码"
-            countDown={120}
-            getCaptchaButtonText=""
-            getCaptchaSecondText="秒"
-            rules={[
-              {
-                required: true,
-                message: '请输入验证码！',
               },
             ]}
           />
