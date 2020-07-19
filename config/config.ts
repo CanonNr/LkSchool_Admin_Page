@@ -2,9 +2,7 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-
 const { REACT_APP_ENV } = process.env;
-
 export default defineConfig({
   hash: true,
   antd: {},
@@ -13,7 +11,7 @@ export default defineConfig({
   },
   layout: {
     name: 'Ant Design Pro',
-    locale: true,
+    locale: false,
     siderWidth: 208,
   },
   locale: {
@@ -42,7 +40,6 @@ export default defineConfig({
         },
       ],
     },
-
     {
       path: '/welcome',
       name: 'welcome',
@@ -73,6 +70,12 @@ export default defineConfig({
     {
       path: '/',
       redirect: '/welcome',
+    },
+    {
+      name: '登录页',
+      icon: 'smile',
+      path: '/login',
+      component: './Account/login',
     },
     {
       component: './404',

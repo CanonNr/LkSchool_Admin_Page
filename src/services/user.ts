@@ -5,7 +5,7 @@ export async function query() {
 }
 
 export async function queryCurrent(token:string) {
-  return request<API.CurrentUser>('/user/info',{
+  return request<API.CurrentUser>('/account/info',{
     method: 'GET',
     data: token,
   });

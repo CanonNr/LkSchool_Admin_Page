@@ -9,7 +9,7 @@ import { ResponseError } from 'umi-request';
 import cookie from 'react-cookies'
 import defaultSettings from '../config/defaultSettings';
 import InitObject from '@/utils/config';
-import { queryCurrent } from '@/services/user';
+// import { queryCurrent } from '@/services/user';
 
 export async function getInitialState(): Promise<{
   currentUser?: API.CurrentUser;
@@ -26,12 +26,12 @@ export async function getInitialState(): Promise<{
       }
 
       // 不为空则获取用户信息
-      const currentUser = await queryCurrent(token);
-
-      if(currentUser.code !== 200){
-        history.push('/user/login');
-        cookie.remove(InitObject.token)
-      }
+      // const currentUser = await queryCurrent(token);
+      //
+      // if(currentUser.code !== 200){
+      //   history.push('/user/login');
+      //   cookie.remove(InitObject.token)
+      // }
 
 
     } catch (error) {
