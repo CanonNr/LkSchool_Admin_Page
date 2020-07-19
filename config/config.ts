@@ -72,7 +72,7 @@ export default defineConfig({
       redirect: '/welcome',
     },
     {
-      name: '登录页',
+      layout: false,
       icon: 'smile',
       path: '/login',
       component: './Account/login',
