@@ -30,17 +30,6 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes: [
     {
-      path: '/user',
-      layout: false,
-      routes: [
-        {
-          name: 'login',
-          path: '/user/login',
-          component: './user/login',
-        },
-      ],
-    },
-    {
       path: '/welcome',
       name: 'welcome',
       icon: 'smile',
@@ -81,7 +70,9 @@ export default defineConfig({
       component: './404',
     },
   ],
-  // Theme for antd: https://ant.design/docs/react/customize-theme-cn
+
+
+
   theme: {
     // ...darkTheme,
     'primary-color': defaultSettings.primaryColor,
