@@ -33,7 +33,7 @@ interface LoginType extends React.FC<LoginProps> {
 const Login: LoginType = (props) => {
   const { className } = props;
   const [tabs, setTabs] = useState<string[]>([]);
-  const [active, setActive] = useState();
+  // const [active, setActive] = useState();
   const [type, setType] = useMergeValue('', {
     value: props.activeKey,
     onChange: props.onTabChange,
@@ -64,13 +64,14 @@ const Login: LoginType = (props) => {
             setTabs(tabs.filter((currentId) => currentId !== id));
           },
         },
-        updateActive: (activeItem) => {
-          if (active[type]) {
-            active[type].push(activeItem);
-          } else {
-            active[type] = [activeItem];
-          }
-          setActive(active);
+        updateActive: () => {
+          // activeItem
+          // if (active[type]) {
+          //   active[type].push(activeItem);
+          // } else {
+          //   active[type] = [activeItem];
+          // }
+          // setActive(active);
         },
       }}
     >
